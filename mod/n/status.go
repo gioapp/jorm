@@ -1,7 +1,7 @@
 package n
 
 import (
-	"git.parallelcoin.io/dev/jorm/mod/a"
+	"github.com/gioapp/jorm/mod/a"
 
 	"git.parallelcoin.io/dev/utl"
 )

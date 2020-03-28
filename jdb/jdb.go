@@ -3,8 +3,8 @@ package jdb
 import (
 	"fmt"
 
-	"git.parallelcoin.io/dev/jorm/cfg"
-	"git.parallelcoin.io/dev/jorm/mod"
+	"github.com/gioapp/jorm/cfg"
+	"github.com/gioapp/jorm/mod"
 	scribble "github.com/nanobox-io/golang-scribble"
 )
 

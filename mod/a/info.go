@@ -3,7 +3,7 @@ package a
 import (
 	"fmt"
 
-	"git.parallelcoin.io/dev/jorm/cfg"
+	"github.com/gioapp/jorm/cfg"
 
 	"git.parallelcoin.io/dev/utl"
 )

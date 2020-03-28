@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"strings"
 
-	"git.parallelcoin.io/dev/jorm/cfg"
-	"git.parallelcoin.io/dev/jorm/mod/c"
+	"github.com/gioapp/jorm/cfg"
+	"github.com/gioapp/jorm/mod/c"
 )
 
 func CloudFlare() {

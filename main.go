@@ -2,8 +2,8 @@ package main
 
 import (
 	"gioui.org/app"
-	"git.parallelcoin.io/dev/jorm/jorm"
-	"git.parallelcoin.io/dev/jorm/mod/c"
+	"github.com/gioapp/jorm/jorm"
+	"github.com/gioapp/jorm/mod/c"
 )
 
 func main() {

@@ -3,8 +3,8 @@ package a
 import (
 	"fmt"
 
-	"git.parallelcoin.io/dev/jorm/cfg"
 	"git.parallelcoin.io/dev/utl"
+	"github.com/gioapp/jorm/cfg"
 )
 
 func (rpc *BitNode) GetTx(txid string) map[string]interface{} {

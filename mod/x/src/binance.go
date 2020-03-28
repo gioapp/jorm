@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"git.parallelcoin.io/dev/jorm/jdb"
-	"git.parallelcoin.io/dev/jorm/mod/x"
+	"github.com/gioapp/jorm/jdb"
+	"github.com/gioapp/jorm/mod/x"
 )
 
 type BinanceExchange struct {

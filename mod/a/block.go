@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"time"
 
-	"git.parallelcoin.io/dev/jorm/cfg"
 	"git.parallelcoin.io/dev/utl"
+	"github.com/gioapp/jorm/cfg"
 )
 
 func (rpc *BitNode) GetBlockCount() (b int) {

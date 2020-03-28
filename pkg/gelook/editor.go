@@ -5,7 +5,7 @@ package gelook
 import (
 	"image/color"
 
-	"git.parallelcoin.io/dev/jorm/pkg/gel"
+	"github.com/gioapp/jorm/pkg/gel"
 
 	"gioui.org/layout"
 	"gioui.org/op"

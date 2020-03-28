@@ -3,8 +3,8 @@ package a
 import (
 	"fmt"
 
-	"git.parallelcoin.io/dev/jorm/cfg"
-	"git.parallelcoin.io/dev/jorm/jdb"
+	"github.com/gioapp/jorm/cfg"
+	"github.com/gioapp/jorm/jdb"
 )
 
 // BitNodes is array of bitnodes addresses

@@ -4,7 +4,7 @@ import (
 	"gioui.org/io/pointer"
 	"gioui.org/layout"
 	"gioui.org/unit"
-	"git.parallelcoin.io/dev/jorm/pkg/gel"
+	"github.com/gioapp/jorm/pkg/gel"
 	"image"
 )
 

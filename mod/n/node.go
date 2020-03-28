@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"git.parallelcoin.io/dev/jorm/cfg"
-	"git.parallelcoin.io/dev/jorm/jdb"
-	"git.parallelcoin.io/dev/jorm/mod"
-	"git.parallelcoin.io/dev/jorm/mod/a"
-	"git.parallelcoin.io/dev/jorm/mod/c"
 	"git.parallelcoin.io/dev/utl"
+	"github.com/gioapp/jorm/cfg"
+	"github.com/gioapp/jorm/jdb"
+	"github.com/gioapp/jorm/mod"
+	"github.com/gioapp/jorm/mod/a"
+	"github.com/gioapp/jorm/mod/c"
 )
 
 type BitNodeds []BitNoded

@@ -6,7 +6,7 @@ import (
 	"gioui.org/layout"
 	"gioui.org/op/paint"
 	"gioui.org/unit"
-	"git.parallelcoin.io/dev/jorm/jdb"
+	"github.com/gioapp/jorm/jdb"
 	"golang.org/x/image/draw"
 	"image"
 	"strings"

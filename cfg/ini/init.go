@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"os"
 
-	"git.parallelcoin.io/dev/jorm/cfg"
-	csrc "git.parallelcoin.io/dev/jorm/mod/c/src"
 	"git.parallelcoin.io/dev/utl"
+	"github.com/gioapp/jorm/cfg"
+	csrc "github.com/gioapp/jorm/mod/c/src"
 )
 
 // Init checks to see if an appdata directory has been created

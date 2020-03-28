@@ -2,7 +2,7 @@ package gelook
 
 import (
 	"gioui.org/layout"
-	"git.parallelcoin.io/dev/jorm/pkg/gel"
+	"github.com/gioapp/jorm/pkg/gel"
 )
 
 type DuoUIpanel struct {

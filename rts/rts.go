@@ -1,7 +1,7 @@
 package rts
 
 import (
-	"git.parallelcoin.io/dev/jorm/rts/h"
+	"github.com/gioapp/jorm/rts/h"
 	"github.com/gorilla/mux"
 )
 

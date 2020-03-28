@@ -5,8 +5,8 @@ import (
 	"gioui.org/font/gofont"
 	"gioui.org/layout"
 	"gioui.org/unit"
-	"git.parallelcoin.io/dev/jorm/mod/c"
-	"git.parallelcoin.io/dev/jorm/pkg/gelook"
+	"github.com/gioapp/jorm/mod/c"
+	"github.com/gioapp/jorm/pkg/gelook"
 )
 
 type Jorm struct {

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"git.parallelcoin.io/dev/jorm/mod/a"
+	"github.com/gioapp/jorm/mod/a"
 	"github.com/gorilla/mux"
 )
 
