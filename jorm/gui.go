@@ -18,8 +18,8 @@ func (j *Jorm) Gui() {
 			layout.Flex{
 				Axis: layout.Horizontal,
 			}.Layout(j.Context,
-				layout.Flexed(0.5, j.CoinsList()),
-				//layout.Flexed(0.5, j.SelectedCoin()),
+				layout.Rigid(j.CoinsList()),
+				layout.Flexed(1, j.SelectedCoin()),
 			)
 			e.Frame(j.Context.Ops)
 		}

@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/gioapp/jorm/pkg/gel"
 	"image"
 	"strings"
 
@@ -29,10 +30,15 @@ type CoinBase struct {
 }
 
 type Coin struct {
-	Name   string      `json:"n" form:"name"`
-	Ticker string      `json:"t" form:"ticker"`
-	Slug   string      `json:"s" form:"slug"`
-	Logo   image.Image `json:"l" form:"logo"`
+	Name     string `json:"n" form:"name"`
+	Ticker   string `json:"t" form:"ticker"`
+	Slug     string `json:"s" form:"slug"`
+	Selected bool
+	Favorite bool
+	Logo     image.Image `json:"l" form:"logo"`
+	LogoBig  image.Image `json:"lb" form:"logobig"`
+	Link     *gel.Button
+	Data     CoinData
 }
 
 // CoinData stores all of the information relating to a coin
@@ -108,22 +114,13 @@ func ReadAllCoins() Coins {
 			fmt.Println("Error", err)
 		}
 
-		// Load logo image from database
-		l := jdb.Read("data/"+cs[i].Slug, "logo")
-		logos := l.(map[string]interface{})
-
-		reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(logos["img16"].(string)))
-		logo, _, err := image.Decode(reader)
-		if err != nil {
-			//log.Fatal(err)
-		}
-
 		ccb := CoinBase{
 			Rank: csb.N,
 			Name: cs[i].Name,
 			Slug: cs[i].Slug,
 		}
-		cs[i].Logo = logo
+		cs[i].Logo = LoadLogo(cs[i].Slug, "img32")
+		cs[i].Link = new(gel.Button)
 		csb.C = append(csb.C, ccb)
 	}
 
@@ -136,4 +133,32 @@ func ReadAllCoins() Coins {
 	jdb.DB.Write(cfg.Web, "coins", c)
 	jdb.DB.Write(cfg.Web, "coinsbase", cb)
 	return cns
+}
+
+func (coin *Coin) SelectCoin() *Coin {
+	coin.LogoBig = LoadLogo(coin.Slug, "img128")
+	coin.Data = LoadInfo(coin.Slug)
+	return coin
+}
+func LoadLogo(slug, size string) image.Image {
+	// Load logo image from database
+	l := jdb.Read("data/"+slug, "logo")
+	logos := l.(map[string]interface{})
+	reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(logos[size].(string)))
+	logo, _, err := image.Decode(reader)
+	if err != nil {
+		//log.Fatal(err)
+	}
+	return logo
+}
+
+func LoadInfo(slug string) CoinData {
+	// Load coin data from database
+	info := jdb.Read("data/"+slug, "info")
+	jsonString, _ := json.Marshal(info)
+	fmt.Println(string(jsonString))
+	// convert json to struct
+	s := CoinData{}
+	json.Unmarshal(jsonString, &s)
+	return s
 }
