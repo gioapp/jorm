@@ -1,8 +1,11 @@
 package c
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"image"
+	"strings"
 
 	"github.com/gioapp/jorm/cfg"
 	"github.com/gioapp/jorm/jdb"
@@ -26,9 +29,10 @@ type CoinBase struct {
 }
 
 type Coin struct {
-	Name   string `json:"n" form:"name"`
-	Ticker string `json:"t" form:"ticker"`
-	Slug   string `json:"s" form:"slug"`
+	Name   string      `json:"n" form:"name"`
+	Ticker string      `json:"t" form:"ticker"`
+	Slug   string      `json:"s" form:"slug"`
+	Logo   image.Image `json:"l" form:"logo"`
 }
 
 // CoinData stores all of the information relating to a coin
@@ -103,11 +107,23 @@ func ReadAllCoins() Coins {
 		if err := json.Unmarshal(coins[i], &cs[i]); err != nil {
 			fmt.Println("Error", err)
 		}
+
+		// Load logo image from database
+		l := jdb.Read("data/"+cs[i].Slug, "logo")
+		logos := l.(map[string]interface{})
+
+		reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(logos["img16"].(string)))
+		logo, _, err := image.Decode(reader)
+		if err != nil {
+			//log.Fatal(err)
+		}
+
 		ccb := CoinBase{
 			Rank: csb.N,
 			Name: cs[i].Name,
 			Slug: cs[i].Slug,
 		}
+		cs[i].Logo = logo
 		csb.C = append(csb.C, ccb)
 	}
 

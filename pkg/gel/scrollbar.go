@@ -57,7 +57,6 @@ func (s *Slider) Layout(gtx *layout.Context) {
 				s.pressed = true
 				s.Do(s.OperateValue)
 				// list.Position.First = int(s.Position)
-				L.Debug("RADI PRESS")
 			case pointer.Release:
 				s.pressed = false
 			}

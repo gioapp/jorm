@@ -1,15 +1,11 @@
 package jorm
 
 import (
-	"encoding/base64"
-	"fmt"
 	"gioui.org/layout"
 	"gioui.org/op/paint"
 	"gioui.org/unit"
-	"github.com/gioapp/jorm/jdb"
 	"golang.org/x/image/draw"
 	"image"
-	"strings"
 )
 
 func (j *Jorm) CoinsList() func() {
@@ -17,7 +13,7 @@ func (j *Jorm) CoinsList() func() {
 		coinsPanelElement.PanelObject = j.Coins.C
 		coinsPanelElement.PanelObjectsNumber = len(j.Coins.C)
 		coinsPanel := j.Theme.DuoUIpanel()
-		coinsPanel.ScrollBar = j.Theme.ScrollBar()
+		coinsPanel.ScrollBar = j.Theme.ScrollBar(0)
 		coinsPanel.Layout(j.Context, coinsPanelElement, func(i int, in interface{}) {
 			coin := j.Coins.C[i]
 			width := j.Context.Constraints.Width.Max
@@ -30,20 +26,19 @@ func (j *Jorm) CoinsList() func() {
 						layout.Rigid(func() {
 							//var logo image.Image
 							//go func() {
-							l := jdb.Read("data/"+coin.Slug, "logo")
-							logos := l.(map[string]interface{})
-
-							reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(logos["img16"].(string)))
-							logo, _, err := image.Decode(reader)
-							if err != nil {
-								//log.Fatal(err)
-							}
-							if logo != nil {
+							//l := jdb.Read("data/"+coin.Slug, "logo")
+							//logos := l.(map[string]interface{})
+							//
+							//reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(logos["img16"].(string)))
+							//logo, _, err := image.Decode(reader)
+							//if err != nil {
+							//	//log.Fatal(err)
+							//}
+							if coin.Logo != nil {
 
 								//bounds := m.Bounds()
 								//}()
-								fmt.Println("logoSloug", coin.Slug)
-								fmt.Println("logoSloug", coin.Slug)
+								//fmt.Println("logoSloug", coin.Slug)
 								imgOp := paint.ImageOp{}
 
 								sz := 16
@@ -51,8 +46,8 @@ func (j *Jorm) CoinsList() func() {
 									imgRender := image.NewRGBA(image.Rectangle{Max: image.Point{X: sz, Y: sz}})
 									draw.ApproxBiLinear.Scale(imgRender,
 										imgRender.Bounds(),
-										logo,
-										logo.Bounds(),
+										coin.Logo,
+										coin.Logo.Bounds(),
 										draw.Src, nil)
 									imgOp = paint.NewImageOp(imgRender)
 								}

@@ -148,57 +148,55 @@ func getCryptoCompare() {
 		slug := utl.MakeSlug(coinSrc.CoinName)
 		var coin c.Coin
 		if jdb.DB.Read(cfg.Web+"/coins", slug, &coin) != nil {
-			go func() {
-				var cData c.CoinData
-				imgurl := fmt.Sprint(coinSrc.ImageUrl)
-				ccID := coinSrc.Id
-				coin.Name = coinSrc.CoinName
-				coin.Ticker = coinSrc.Symbol
-				coin.Slug = slug
-				cData.Name = coinSrc.CoinName
-				cData.Ticker = coinSrc.Symbol
-				cData.Slug = slug
-				if coinSrc.Algorithm != "" {
-					cData.Algo = coinSrc.Algorithm
-				}
-				coinDetailsRaw := CryptoCompareCoin{}
-				respc, err := http.Get("https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=" + ccID)
+			var cData c.CoinData
+			imgurl := fmt.Sprint(coinSrc.ImageUrl)
+			ccID := coinSrc.Id
+			coin.Name = coinSrc.CoinName
+			coin.Ticker = coinSrc.Symbol
+			coin.Slug = slug
+			cData.Name = coinSrc.CoinName
+			cData.Ticker = coinSrc.Symbol
+			cData.Slug = slug
+			if coinSrc.Algorithm != "" {
+				cData.Algo = coinSrc.Algorithm
+			}
+			coinDetailsRaw := CryptoCompareCoin{}
+			respc, err := http.Get("https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=" + ccID)
+			if err != nil {
+			}
+			defer respc.Body.Close()
+			mapBody, err := ioutil.ReadAll(respc.Body)
+			json.Unmarshal(mapBody, &coinDetailsRaw)
+			coinDetails := coinDetailsRaw.Data
+			cData.Description = insertData(coinDetails.General.Description, cData.Description)
+			cData.WebSite = insertData(coinDetails.General.WebsiteURL, cData.WebSite)
+			cData.TotalCoinSupply = insertData(coinDetails.General.TotalCoinSupply, cData.TotalCoinSupply)
+			cData.DifficultyAdjustment = insertData(coinDetails.General.DifficultyAdjustment, cData.DifficultyAdjustment)
+			cData.DifficultyAdjustment = insertData(coinDetails.General.ProofType, cData.ProofType)
+			cData.StartDate = insertData(coinDetails.General.StartDate, cData.StartDate)
+			cData.Twitter = insertData(coinDetails.General.Twitter, cData.Twitter)
+			fmt.Println("CryptoCompare Coin >>>", coin.Name)
+			fmt.Println("CryptoCompare SlugSlugSlugSlug >>>", coin.Slug)
+			fmt.Println("CryptoCompare ssssssssssssssssss >>>", slug)
+			// fmt.Println("ImgUrl >>>", imgurl)
+			// fmt.Println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+
+			if coinDetails.ICO.Status != "N/A" {
+				cData.Ico = true
+				jdb.WriteCoinData(slug, "ico", coinDetails.ICO)
+
+				fmt.Println("Insert ICO Coin: ", coinDetails.General.Name)
+
+			}
+			var cImgs utl.Images
+			if imgurl != "<nil>" {
+				cImgs, _ = utl.GetIMG("https://cryptocompare.com" + imgurl)
 				if err != nil {
+					fmt.Println("Problem Insert", err)
 				}
-				defer respc.Body.Close()
-				mapBody, err := ioutil.ReadAll(respc.Body)
-				json.Unmarshal(mapBody, &coinDetailsRaw)
-				coinDetails := coinDetailsRaw.Data
-				cData.Description = insertData(coinDetails.General.Description, cData.Description)
-				cData.WebSite = insertData(coinDetails.General.WebsiteURL, cData.WebSite)
-				cData.TotalCoinSupply = insertData(coinDetails.General.TotalCoinSupply, cData.TotalCoinSupply)
-				cData.DifficultyAdjustment = insertData(coinDetails.General.DifficultyAdjustment, cData.DifficultyAdjustment)
-				cData.DifficultyAdjustment = insertData(coinDetails.General.ProofType, cData.ProofType)
-				cData.StartDate = insertData(coinDetails.General.StartDate, cData.StartDate)
-				cData.Twitter = insertData(coinDetails.General.Twitter, cData.Twitter)
-				fmt.Println("CryptoCompare Coin >>>", coin.Name)
-				fmt.Println("CryptoCompare SlugSlugSlugSlug >>>", coin.Slug)
-				fmt.Println("CryptoCompare ssssssssssssssssss >>>", slug)
-				// fmt.Println("ImgUrl >>>", imgurl)
-				// fmt.Println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-
-				if coinDetails.ICO.Status != "N/A" {
-					cData.Ico = true
-					jdb.WriteCoinData(slug, "ico", coinDetails.ICO)
-
-					fmt.Println("Insert ICO Coin: ", coinDetails.General.Name)
-
-				}
-				var cImgs utl.Images
-				if imgurl != "<nil>" {
-					cImgs, _ = utl.GetIMG("https://cryptocompare.com" + imgurl)
-					if err != nil {
-						fmt.Println("Problem Insert", err)
-					}
-				}
-				jdb.WriteCoinImg(slug, cImgs)
-				jdb.WriteCoin(slug, coin, cData)
-			}()
+			}
+			jdb.WriteCoinImg(slug, cImgs)
+			jdb.WriteCoin(slug, coin, cData)
 		}
 	}
 	fmt.Println("GetCryptoCompareDone")

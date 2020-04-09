@@ -2,7 +2,7 @@ package csrc
 
 // GetCoinSources updates the available coin information sources
 func GetCoinSources() {
-	go getCryptoCompare()
+	getCryptoCompare()
 	// getCoinCodex()
 	// getCoinGecko()
 
