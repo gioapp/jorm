@@ -47,8 +47,8 @@ func AddCoinHandler(w http.ResponseWriter, r *http.Request) {
 		Slug: utl.MakeSlug(name),
 	}
 
-	fmt.Println("name", name)
-	fmt.Println("coin", coin)
+	//fmt.Println("name", name)
+	//fmt.Println("coin", coin)
 	c := mod.Cache{Data: coin}
 	jdb.DB.Write(cfg.Web+"/coins", coin.Slug, c)
 	http.Redirect(w, r, "/", 302)

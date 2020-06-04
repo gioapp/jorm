@@ -3,7 +3,7 @@ package jorm
 import (
 	"gioui.org/io/system"
 	"gioui.org/layout"
-	"github.com/gioapp/jorm/pkg/gel"
+	"github.com/gioapp/gel"
 )
 
 var (

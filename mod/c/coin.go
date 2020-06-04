@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/gioapp/jorm/pkg/gel"
+	"github.com/gioapp/gel"
 	"image"
 	"strings"
 
@@ -156,7 +156,7 @@ func LoadInfo(slug string) CoinData {
 	// Load coin data from database
 	info := jdb.Read("data/"+slug, "info")
 	jsonString, _ := json.Marshal(info)
-	fmt.Println(string(jsonString))
+	//fmt.Println(string(jsonString))
 	// convert json to struct
 	s := CoinData{}
 	json.Unmarshal(jsonString, &s)
