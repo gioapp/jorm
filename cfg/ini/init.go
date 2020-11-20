@@ -20,17 +20,17 @@ func Init() {
 	if !utl.FileExists(cfg.File) {
 		// cfguration does not exist, so we expect arg 1 and 2 to be
 		// the username and password for bitnodes
-		if len(os.Args) < 3 {
-			fmt.Println("Please add the username and password for bitnodes")
-			fmt.Println("to the commandline parameters to initialise config")
-			fmt.Println()
-			fmt.Println(os.Args[0], "<username> <password>")
-			os.Exit(0)
-		}
-		cfg.Credentials = cfg.Conf{
-			Username: os.Args[1],
-			Password: os.Args[2],
-		}
+		//if len(os.Args) < 3 {
+		//fmt.Println("Please add the username and password for bitnodes")
+		//fmt.Println("to the commandline parameters to initialise config")
+		//fmt.Println()
+		//fmt.Println(os.Args[0], "<username> <password>")
+		//os.Exit(0)
+		//}
+		//cfg.Credentials = cfg.Conf{
+		//	Username: os.Args[1],
+		//	Password: os.Args[2],
+		//}
 		if !utl.EnsureDir(cfg.File) {
 			panic("could not create data directory to write config")
 		}

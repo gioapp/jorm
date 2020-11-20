@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/gioapp/gel"
+	"github.com/p9c/pod/pkg/gui/p9"
 	"image"
 	"strings"
 
@@ -37,7 +37,7 @@ type Coin struct {
 	Favorite bool
 	Logo     image.Image `json:"l" form:"logo"`
 	LogoBig  image.Image `json:"lb" form:"logobig"`
-	Link     *gel.Button
+	Link     *p9.Clickable
 	Data     CoinData
 }
 
@@ -120,7 +120,7 @@ func ReadAllCoins() Coins {
 			Slug: cs[i].Slug,
 		}
 		cs[i].Logo = LoadLogo(cs[i].Slug, "img32")
-		cs[i].Link = new(gel.Button)
+		cs[i].Link = new(p9.Clickable)
 		csb.C = append(csb.C, ccb)
 	}
 

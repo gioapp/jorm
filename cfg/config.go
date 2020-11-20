@@ -3,7 +3,7 @@ package cfg
 import (
 	"path/filepath"
 
-	"git.parallelcoin.io/dev/appdata"
+	"github.com/p9c/pod/app/appdata"
 )
 
 // Conf is the configuration for accessing bitnodes endpoint
